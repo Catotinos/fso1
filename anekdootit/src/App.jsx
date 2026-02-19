@@ -33,7 +33,6 @@ const App = () => {
 
   console.log(votes)
   
-  
   let currentanecdote = selected
 
   const next = () => {
@@ -41,11 +40,12 @@ const App = () => {
     const random = Math.floor(Math.random() * length);
     setSelected(random)
     currentanecdote = selected
-    console.log(copy[currentanecdote])
   }
 
   const vote = () => {
+    const copy = {...votes}
     copy[currentanecdote] += 1
+    setVotes(copy)
   }
 
   return (
@@ -54,7 +54,7 @@ const App = () => {
         {anecdotes[selected]}
       </div>
       <div>
-        <p>has {copy[currentanecdote]} votes</p>
+        <p>has {votes[currentanecdote]} votes</p>
       </div>
       <div>
         <Button onClick={vote} text="vote" />
