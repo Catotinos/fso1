@@ -1,6 +1,29 @@
 import { useState } from 'react'
 
-
+const P = (props) => {
+  let votes = props.votes
+  let anecdotes = props.anecdotes
+  let anec = null
+  let biggest = 0
+  for (var i = 0; i < anecdotes.length; i++) {
+    if(votes[i] > biggest){
+      biggest = votes[i]
+      anec = anecdotes[i]
+    }
+  }
+  if(anec == null){
+    return(
+      <p>none</p>
+    )
+  } else if(anec != null){
+    return(
+      <>
+        <p>{anec}</p>
+        <p>has {biggest} votes</p>
+      </>
+    )
+  }
+}
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
@@ -30,8 +53,6 @@ const App = () => {
   const [votes, setVotes] = useState(
     getvotes()
   )
-
-  console.log(votes)
   
   let currentanecdote = selected
 
@@ -51,6 +72,9 @@ const App = () => {
   return (
     <div>
       <div>
+        <h1>Anecdote of the day</h1>
+      </div>
+      <div>
         {anecdotes[selected]}
       </div>
       <div>
@@ -59,6 +83,10 @@ const App = () => {
       <div>
         <Button onClick={vote} text="vote" />
         <Button onClick={next} text="next anecdote" />
+      </div>
+      <div>
+        <h1>Anecdote with the most votes</h1>
+        <P votes={votes} anecdotes={anecdotes}/>
       </div>
     </div>
   )
